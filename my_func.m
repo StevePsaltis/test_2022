@@ -13,3 +13,20 @@ try
 catch e
     fprintf('Error setting up parallel pool!\n');
 end
+
+%% Example where sequential is faster than parallel
+fprintf('Sequential for loop: ')
+tic;
+sqrd = zeros(N, 1);
+for i = 1:N
+    sqrd(i, 1) = i^2;
+end
+toc
+
+fprintf('Parallel for loop: ')
+tic;
+sqrd = zeros(N, 1);
+parfor i = 1:N
+    sqrd(i, 1) = i^2;
+end
+toc
