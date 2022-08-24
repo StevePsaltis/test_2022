@@ -30,3 +30,26 @@ parfor i = 1:N
     sqrd(i, 1) = i^2;
 end
 toc
+
+%% Example where parallel is faster than sequential
+fprintf('Sequential for loop: ')
+tic
+n = 200;
+A = 500;
+a = zeros(n);
+for i = 1:n
+    a(i) = max(abs(eig(rand(A))));
+end
+toc
+
+fprintf('Parallel for loop: ')
+tic
+ticBytes(gcp);
+n = 200;
+A = 500;
+a = zeros(n);
+parfor i = 1:n
+    a(i) = max(abs(eig(rand(A))));
+end
+tocBytes(gcp)
+toc
